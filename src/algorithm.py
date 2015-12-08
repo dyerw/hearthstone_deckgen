@@ -62,7 +62,7 @@ def generate_deck(graph):
     while graph.size() <= 30:
         curr = nil
         x = 0
-        for node in graph.nodes() - result_node_set:
+        for node in [n for n in graph.nodes() if n not in result_node_set]:
             tmp = sum_edges_added(node, result_node_set, graph)
             if tmp > x:
                 curr = node
