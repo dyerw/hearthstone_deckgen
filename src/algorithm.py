@@ -48,3 +48,27 @@ def create_graph(data):
 
     for edge in G.edges_iter(data='weight', default=0):
         print edge
+
+# FIXME: Account for duplicate nodes
+def generate_deck(graph):
+    edges = sort_edges(graph.edges())    # sort the edges by weight
+    num_cards, cost = 0
+    result_node_set = []
+
+    max_edge = edges[0]
+    result_node_set += [max_edge[0]]
+    result_node_set += [max_edge[1]]
+
+    while graph.size() <= 30:
+        curr = nil
+        x = 0
+        for node in graph.nodes() - result_node_set:
+            tmp = sum_edges_added(node, result_node_set, graph)
+            if tmp > x:
+                curr = node
+                x = tmp
+
+        cost += x
+        result_node_set += [curr]
+
+    return result_node_set
